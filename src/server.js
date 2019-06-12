@@ -2,14 +2,23 @@ const app = require('./app');
 const http = require('http');
 const mongoose = require('mongoose');
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:6TMG736pEegtrK4V@bloc-shopping-list-agucq.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
+.then(() => {
+})
+.catch((err) => {
+  console.log(err);
+})
+
+/*
+const uri = process.env.mongoSecret;
+mongoose.connect(uri, {useNewUrlParser: true})
+.then(() => {
+  const collection = mongoose.db("test").collection("devices");
+})
+.catch((err) => {
+  console.log(err);
 });
+*/
 
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);

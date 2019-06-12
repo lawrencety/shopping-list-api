@@ -1,16 +1,26 @@
-const List = require('./models').List;
+const List = require('./models/list');
 
 module.exports = {
+  getAllLists() {
+    return List.find()
+  },
+
   createList(listOptions) {
-    List.create({
+    return List.create({
       name: listOptions.name
     })
-    .then((newList) => {
-      callback(null, newList)
-    })
-    .catch((err) => {
-      console.log(err);
-      callback(err);
-    })
+  },
+
+  getList(id) {
+    return List.findById(id)
+  },
+
+  updateList(id, updatedList) {
+    return List.findByIdAndUpdate(id, updatedList, {strict: true})
+  },
+
+  deleteList(id) {
+    return List.findByIdAndDelete(id)
   }
+
 }
