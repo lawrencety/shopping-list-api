@@ -31,13 +31,14 @@ describe('routes', () => {
       request.post(options, (err, res, body) => {
         let result = JSON.parse(body)
         expect(err).toBeNull();
+        expect(result.statusCode).toBe(200);
         expect(result.data.name).toBe('July 4th BBQ')
         done()
       })
     })
   })
 
-  describe('show', () => {
+  describe('index', () => {
     it('should return all lists', (done) => {
       const lists = [
         {name: 'My First List'},
@@ -51,7 +52,28 @@ describe('routes', () => {
         request.get(options, (err, res, body) => {
           let result = JSON.parse(body);
           expect(result).not.toBeNull();
+          expect(result.statusCode).toBe(200);
           expect(result.data.length).toBe(2)
+          done();
+        })
+      })
+    })
+  })
+
+  describe('show', () => {
+    it('should return the list with the corresponding ID', (done) => {
+      List.create({name: 'July 4th BBQ'})
+      .then((list) => {
+        this.list = list;
+        console.log(this.list.id)
+        const options = {
+          url: `${base}lists/${this.list.id}`
+        }
+        request.get(options, (err, res, body) => {
+          let result = JSON.parse(body);
+          expect(result).not.toBeNull();
+          expect(result.statusCode).toBe(200);
+          expect(result.data.name).toBe('July 4th BBQ');
           done();
         })
       })

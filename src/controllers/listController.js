@@ -2,6 +2,27 @@ const listQueries = require('../db/queries.list.js');
 const mongoose = require('mongoose');
 
 module.exports = {
+  index(req, res, next) {
+    listQueries.getAllLists()
+    .then((lists) => {
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: lists
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
+  },
+
   create(req, res, next) {
     let newList = {
       name: req.body.name
@@ -27,12 +48,34 @@ module.exports = {
   },
 
   show(req, res, next) {
-    listQueries.getAllLists()
+    listQueries.getList(req.params.id)
     .then((lists) => {
       let returnData = {
         statusCode: 200,
         message: 'Success',
         data: lists
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
+  },
+
+  update(req, res, next) {
+    let updatedList = req.body;
+    listQueries.updateList(updatedList)
+    .then((list) => {
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: list
       };
       res.json(returnData)
     })
