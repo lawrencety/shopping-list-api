@@ -4,7 +4,8 @@
   "description": "A shared mobile shopping list",
   "main": "src/server.js)",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "start": "nodemon src/server.js"
   },
   "author": "",
   "license": "ISC",
