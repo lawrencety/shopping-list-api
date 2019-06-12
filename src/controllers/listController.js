@@ -49,11 +49,11 @@ module.exports = {
 
   show(req, res, next) {
     listQueries.getList(req.params.id)
-    .then((lists) => {
+    .then((list) => {
       let returnData = {
         statusCode: 200,
         message: 'Success',
-        data: lists
+        data: list
       };
       res.json(returnData)
     })
