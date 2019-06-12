@@ -16,8 +16,11 @@ module.exports = {
   },
 
   updateList(id, updatedList) {
-    console.log(updatedList)
     return List.findByIdAndUpdate(id, updatedList, {strict: true})
+  },
+
+  deleteList(id) {
+    return List.findByIdAndDelete(id)
   }
 
 }

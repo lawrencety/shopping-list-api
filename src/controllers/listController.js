@@ -89,5 +89,27 @@ module.exports = {
       };
       res.json(returnData)
     })
+  },
+
+  destroy(req, res, next) {
+    listQueries.deleteList(req.params.id)
+    .then((list) => {
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: list
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
   }
+
 }

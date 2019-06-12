@@ -95,9 +95,38 @@ describe('routes', () => {
           expect(result.statusCode).toBe(200);
           List.findById(this.list.id)
           .then((list) => {
-            console.log(list);
             expect(list).not.toBeNull();
             expect(list.name).toBe('Independence Day');
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+            done();
+          })
+        })
+      })
+    })
+  })
+
+  describe('destroy', () => {
+    it('should delete the list', (done) => {
+      List.create({name: 'July 4th BBQ'})
+      .then((list) => {
+        this.list = list;
+        const options = {
+          url: `${base}lists/${this.list.id}/destroy`
+        }
+        request.post(options, (err, res, body) => {
+          let result = JSON.parse(body);
+          expect(result.statusCode).toBe(200);
+          List.findById(this.list.id)
+          .then((list) => {
+            expect(list).toBeNull();
+            done();
+          })
+          .catch((err) => {
+            expect(list).toBeNull();
+            console.log(err);
             done();
           })
         })

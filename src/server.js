@@ -2,7 +2,7 @@ const app = require('./app');
 const http = require('http');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true})
+mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
 .then(() => {
 })
 .catch((err) => {
