@@ -1,16 +1,13 @@
-const List = require('./models').List;
+const List = require('./models/list');
 
 module.exports = {
   createList(listOptions) {
-    List.create({
+    return List.create({
       name: listOptions.name
     })
-    .then((newList) => {
-      callback(null, newList)
-    })
-    .catch((err) => {
-      console.log(err);
-      callback(err);
-    })
+  },
+
+  getAllLists() {
+    return List.find()
   }
 }

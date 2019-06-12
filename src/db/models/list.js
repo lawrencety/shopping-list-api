@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const itemSchema = require('./item')
 
 const listSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   name: {
     type: String,
   },
@@ -13,3 +13,5 @@ const listSchema = new mongoose.Schema({
 })
 
 const List = mongoose.model('List', listSchema);
+
+module.exports = List;

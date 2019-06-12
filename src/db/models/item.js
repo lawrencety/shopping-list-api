@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   name: {
     type: String,
   },
@@ -13,8 +12,11 @@ const itemSchema = new mongoose.Schema({
     type: Number
   },
   purchaseStatus: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 })
 
 const Item = mongoose.model('Item', itemSchema);
+
+module.exports = itemSchema;
