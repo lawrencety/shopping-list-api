@@ -7,7 +7,7 @@ const List = require('../../src/db/models/list');
 describe('routes', () => {
   beforeEach((done) => {
     this.list;
-    mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true})
+    mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
     .then(() => {
       List.deleteMany()
       .then(() => {
@@ -65,7 +65,6 @@ describe('routes', () => {
       List.create({name: 'July 4th BBQ'})
       .then((list) => {
         this.list = list;
-        console.log(this.list.id)
         const options = {
           url: `${base}lists/${this.list.id}`
         }
@@ -75,6 +74,32 @@ describe('routes', () => {
           expect(result.statusCode).toBe(200);
           expect(result.data.name).toBe('July 4th BBQ');
           done();
+        })
+      })
+    })
+  })
+
+  describe('update', () => {
+    it('should update the list with the corresponding ID', (done) => {
+      List.create({name: 'July 4th BBQ'})
+      .then((list) => {
+        this.list = list;
+        const options = {
+          url: `${base}lists/${this.list.id}/update`,
+          form: {
+            name: 'Independence Day'
+          }
+        }
+        request.post(options, (err, res, body) => {
+          let result = JSON.parse(body);
+          expect(result.statusCode).toBe(200);
+          List.findById(this.list.id)
+          .then((list) => {
+            console.log(list);
+            expect(list).not.toBeNull();
+            expect(list.name).toBe('Independence Day');
+            done();
+          })
         })
       })
     })

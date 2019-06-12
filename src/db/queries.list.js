@@ -13,6 +13,11 @@ module.exports = {
 
   getList(id) {
     return List.findById(id)
+  },
+
+  updateList(id, updatedList) {
+    console.log(updatedList)
+    return List.findByIdAndUpdate(id, updatedList, {strict: true})
   }
 
 }

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 describe('List', () => {
   beforeEach((done) => {
     this.list;
-    mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true})
+    mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
     .then(() => {
       List.deleteMany()
       .then(() => {

@@ -70,7 +70,8 @@ module.exports = {
 
   update(req, res, next) {
     let updatedList = req.body;
-    listQueries.updateList(updatedList)
+    console.log(updatedList)
+    listQueries.updateList(req.params.id, updatedList)
     .then((list) => {
       let returnData = {
         statusCode: 200,
