@@ -8,7 +8,6 @@ describe('List', () => {
     .then(() => {
       List.deleteMany()
       .then(() => {
-        console.log('Successfully connected to MongoDB')
         done();
       })
       .catch((err) => {
