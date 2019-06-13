@@ -66,7 +66,7 @@ describe('routes', () => {
       .then((list) => {
         this.list = list;
         const options = {
-          url: `${base}lists/${this.list.id}`
+          url: `${base}lists/${this.list._id}`
         }
         request.get(options, (err, res, body) => {
           let result = JSON.parse(body);
@@ -85,7 +85,7 @@ describe('routes', () => {
       .then((list) => {
         this.list = list;
         const options = {
-          url: `${base}lists/${this.list.id}/update`,
+          url: `${base}lists/${this.list._id}/update`,
           form: {
             name: 'Independence Day'
           }
@@ -93,7 +93,7 @@ describe('routes', () => {
         request.post(options, (err, res, body) => {
           let result = JSON.parse(body);
           expect(result.statusCode).toBe(200);
-          List.findById(this.list.id)
+          List.findById(this.list._id)
           .then((list) => {
             expect(list).not.toBeNull();
             expect(list.name).toBe('Independence Day');
