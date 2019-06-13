@@ -101,12 +101,11 @@ module.exports = {
   destroy(req, res, next) {
     listQueries.getList(req.params.listId)
     .then((list) => {
-      let item = itemQueries.deleteItem(list, req.params.id)
-      console.log(item);
+      let newList = itemQueries.deleteItem(list, req.params.id)
       let returnData = {
         statusCode: 200,
         message: 'Success',
-        data: item
+        data: newList.items
       };
       res.json(returnData)
     })

@@ -13,6 +13,7 @@ module.exports = {
 
   deleteItem(list, id) {
     list.items.id(id).remove();
-    return list.save();
+    list.save();
+    return list
   }
 }

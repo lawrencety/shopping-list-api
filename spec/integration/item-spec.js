@@ -125,9 +125,11 @@ describe('routes', () => {
       request.post(options, (err, res, body) => {
         let result = JSON.parse(body);
         expect(result.statusCode).toBe(200);
-        console.log(this.list.items);
-        expect(result.data).toBeNull();
-        done();
+        List.findById(this.list._id)
+        .then((list) => {
+          expect(list.items[0]).toBeUndefined();
+          done();
+        })
       })
     })
   })
