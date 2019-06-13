@@ -18,5 +18,37 @@ module.exports = {
       };
       res.json(returnData)
     })
+    .catch((err) => {
+      console.log(err);
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
+  },
+
+  update(req, res, next) {
+    const updatedItem = req.body;
+    listQueries.getList(req.params.listId)
+    .then((list) => {
+      let item = itemQueries.updateItem(list, req.params.id, updatedItem)
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: item
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
   }
 }

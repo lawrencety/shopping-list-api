@@ -5,5 +5,9 @@ module.exports = {
   createItem(list, newItem) {
     list.items.push(newItem);
     return list
+  },
+
+  updateItem(list, id, updatedItem) {
+    return list.items.id(id).set(updatedItem)
   }
 }

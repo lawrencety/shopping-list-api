@@ -39,10 +39,35 @@ describe('routes', () => {
       }
       request.post(options, (err, res, body) => {
         let result = JSON.parse(body);
-        console.log(result);
+        expect(result.statusCode).toBe(200);
         expect(result.data[0].name).toBe('Sugar cookies');
         done();
       })
     })
   })
+
+  describe('update', () => {
+    it('should update the selected item', (done) => {
+      this.list.items.push({
+        name: 'Sugar cookies',
+        quantity: 20
+      })
+      this.item = this.list.items[0];
+      this.list.save();
+      const options = {
+        url: `${base}lists/${this.list._id}/items/${this.item._id}/update`,
+        form: {
+          quantity: 10
+        }
+      }
+      request.post(options, (err, res, body) => {
+        let result = JSON.parse(body);
+        expect(result.statusCode).toBe(200);
+        expect(result.data.quantity).toBe(10);
+        done();
+      })
+    })
+  })
+
+
 })
