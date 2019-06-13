@@ -50,5 +50,74 @@ module.exports = {
       };
       res.json(returnData)
     })
+  },
+
+  setPurchaseStatusTrue(req, res, next) {
+    const updatedStatus = {purchaseStatus: true};
+    listQueries.getList(req.params.listId)
+    .then((list) => {
+      let item = itemQueries.updateItem(list, req.params.id, updatedStatus)
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: item
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
+  },
+
+  setPurchaseStatusFalse(req, res, next) {
+    const updatedStatus = {purchaseStatus: false};
+    listQueries.getList(req.params.listId)
+    .then((list) => {
+      let item = itemQueries.updateItem(list, req.params.id, updatedStatus)
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: item
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
+  },
+
+  destroy(req, res, next) {
+    listQueries.getList(req.params.listId)
+    .then((list) => {
+      let item = itemQueries.deleteItem(list, req.params.id)
+      console.log(item);
+      let returnData = {
+        statusCode: 200,
+        message: 'Success',
+        data: item
+      };
+      res.json(returnData)
+    })
+    .catch((err) => {
+      console.log(err)
+      let returnData = {
+        statusCode: 400,
+        message: 'Bad Request',
+        data: err
+      };
+      res.json(returnData)
+    })
   }
 }

@@ -9,5 +9,10 @@ module.exports = {
 
   updateItem(list, id, updatedItem) {
     return list.items.id(id).set(updatedItem)
+  },
+
+  deleteItem(list, id) {
+    list.items.id(id).remove();
+    return list.save();
   }
 }

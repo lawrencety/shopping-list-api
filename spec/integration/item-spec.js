@@ -69,5 +69,66 @@ describe('routes', () => {
     })
   })
 
+  describe('setPurchaseStatusTrue', () => {
+    it('should set the purchaseStatus to true', (done) => {
+      this.list.items.push({
+        name: 'Sugar cookies',
+        quantity: 20,
+        purchaseStatus: false
+      })
+      this.item = this.list.items[0];
+      this.list.save();
+      const options = {
+        url: `${base}lists/${this.list._id}/items/${this.item._id}/purchaseStatusTrue`
+      }
+      request.post(options, (err, res, body) => {
+        let result = JSON.parse(body);
+        expect(result.statusCode).toBe(200);
+        expect(result.data.purchaseStatus).toBe(true);
+        done();
+      })
+    })
+  })
 
+  describe('setPurchaseStatusFalse', () => {
+    it('should set the purchaseStatus to false', (done) => {
+      this.list.items.push({
+        name: 'Sugar cookies',
+        quantity: 20,
+        purchaseStatus: true
+      })
+      this.item = this.list.items[0];
+      this.list.save();
+      const options = {
+        url: `${base}lists/${this.list._id}/items/${this.item._id}/purchaseStatusFalse`
+      }
+      request.post(options, (err, res, body) => {
+        let result = JSON.parse(body);
+        expect(result.statusCode).toBe(200);
+        expect(result.data.purchaseStatus).toBe(false);
+        done();
+      })
+    })
+  })
+
+  describe('destroy', () => {
+    it('should delete the item', (done) => {
+      this.list.items.push({
+        name: 'Sugar cookies',
+        quantity: 20
+      })
+      this.item = this.list.items[0];
+      this.list.save();
+      const options = {
+        url: `${base}lists/${this.list._id}/items/${this.item._id}/destroy`
+      }
+      request.post(options, (err, res, body) => {
+        let result = JSON.parse(body);
+        expect(result.statusCode).toBe(200);
+        console.log(this.list.items);
+        expect(result.data).toBeNull();
+        done();
+      })
+    })
+  })
 })
