@@ -72,6 +72,7 @@ module.exports = {
     let updatedList = req.body;
     listQueries.updateList(req.params.id, updatedList)
     .then((list) => {
+      console.log(list)
       let returnData = {
         statusCode: 200,
         message: 'Success',

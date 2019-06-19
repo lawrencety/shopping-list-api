@@ -16,11 +16,25 @@ module.exports = {
   },
 
   updateList(id, updatedList) {
-    return List.findByIdAndUpdate(id, updatedList, {strict: true})
+    return List.findByIdAndUpdate(id, updatedList, {strict: true}, (err, list) => {
+      if (err) {
+        console.log(err)
+        return err
+      } else {
+        return list
+      }
+    })
   },
 
   deleteList(id) {
-    return List.findByIdAndDelete(id)
+    return List.findByIdAndDelete(id, (err, list) => {
+      if (err) {
+        console.log(err)
+        return err
+      } else {
+        return list
+      }
+    })
   }
 
 }
