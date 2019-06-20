@@ -4,11 +4,14 @@ const Item = require('./models/item');
 module.exports = {
   createItem(list, newItem) {
     list.items.push(newItem);
-    return list
+    list.save();
+    return list.items.slice(-1)[0]
   },
 
   updateItem(list, id, updatedItem) {
-    return list.items.id(id).set(updatedItem)
+    list.items.id(id).set(updatedItem)
+    list.save();
+    return list.items.id(id)
   },
 
   deleteItem(list, id) {

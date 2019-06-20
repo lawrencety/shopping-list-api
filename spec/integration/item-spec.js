@@ -31,7 +31,7 @@ describe('routes', () => {
   describe('create', () => {
     it('should create an item in the list', (done) => {
       const options = {
-        url: `${base}lists/${this.list._id}/create`,
+        url: `${base}lists/${this.list._id}/items/create`,
         form: {
           name: 'Sugar cookies',
           quantity: 20
