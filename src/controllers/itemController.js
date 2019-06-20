@@ -105,7 +105,7 @@ module.exports = {
       let returnData = {
         statusCode: 200,
         message: 'Success',
-        data: newList.items
+        data: req.params.id
       };
       res.json(returnData)
     })
