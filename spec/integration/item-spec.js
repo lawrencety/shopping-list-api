@@ -40,7 +40,7 @@ describe('routes', () => {
       request.post(options, (err, res, body) => {
         let result = JSON.parse(body);
         expect(result.statusCode).toBe(200);
-        expect(result.data[0].name).toBe('Sugar cookies');
+        expect(result.data.name).toBe('Sugar cookies');
         done();
       })
     })

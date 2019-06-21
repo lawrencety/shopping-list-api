@@ -1,6 +1,9 @@
 const app = require('./app');
 const http = require('http');
 const mongoose = require('mongoose');
+const WebSocket = require('socket.io');
+const handlers = require('./handlers');
+const clientManager = require('./managers/clientManager');
 
 mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
 .then(() => {
@@ -19,7 +22,6 @@ mongoose.connect(uri, {useNewUrlParser: true})
   console.log(err);
 });
 */
-
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
@@ -41,3 +43,34 @@ function normalizePort(val) {
 server.on('listening', () => {
   console.log(`Server is listening for requests on port ${server.address().port}`);
 })
+
+const io = WebSocket(server)
+
+io.on('connection', (client) => {
+  console.log('WebSocket connected')
+  handlers.handleConnect(client)
+
+  client.on('addedList', (list) => {
+    handlers.handleNewList(list)
+  })
+
+  client.on('addedItem', (item) => {
+    handlers.handleNewItem(item)
+  })
+
+  client.emit('message', 'Hello World');
+
+  client.on('message', (message) => {
+    handlers.handleMessage(client, message)
+  })
+
+  client.on('disconnect', () => {
+    console.log('client disconnect...', client.id)
+    handlers.handleDisconnect(client)
+  })
+
+  client.on('error', function (err) {
+    console.log('received error from client:', client.id)
+    console.log(err)
+  })
+});
