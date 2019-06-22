@@ -23,6 +23,15 @@ module.exports = {
     clientManager.broadcastNewItem(item)
   },
 
+  handleListUpdate(list) {
+    console.log('handle update')
+    clientManager.broadcastList(list)
+  },
+
+  handleItemUpdate(item) {
+    clientManager.broadcastItem(item)
+  },
+
   handleListUpdate(clients, list) {
     client.emit('list', list)
   },

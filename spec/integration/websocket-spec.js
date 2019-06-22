@@ -8,7 +8,6 @@ describe('WebSocket', () => {
 
   describe('receive generic message', () => {
     it('should log out the message', (done) => {
-      socket.on('open')
       socket.on('message', (res) => {
         console.log(res)
         expect(res).not.toBeNull();
@@ -20,7 +19,6 @@ describe('WebSocket', () => {
 
   describe('send generic message', () => {
     it('should log out the message', (done) => {
-      socket.on('open')
       const options = {
         data: 'Hello World'
       }
@@ -35,7 +33,6 @@ describe('WebSocket', () => {
 
   describe('send new list', () => {
     it('should return the new list', (done) => {
-      socket.on('open')
       const options = {
         name: 'July 4th',
       }
@@ -50,7 +47,6 @@ describe('WebSocket', () => {
 
   describe('send new item', () => {
     it('should return the new item', (done) => {
-      socket.on('open')
       const options = {
         name: 'Hot dogs',
         quantity: 10

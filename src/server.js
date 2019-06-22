@@ -58,6 +58,11 @@ io.on('connection', (client) => {
     handlers.handleNewItem(item)
   })
 
+  client.on('updatedList', (list) => {
+    console.log('Please handle')
+    handlers.handleListUpdate(list)
+  })
+
   client.emit('message', 'Hello World');
 
   client.on('message', (message) => {
@@ -69,7 +74,7 @@ io.on('connection', (client) => {
     handlers.handleDisconnect(client)
   })
 
-  client.on('error', function (err) {
+  client.on('error', (err) => {
     console.log('received error from client:', client.id)
     console.log(err)
   })
