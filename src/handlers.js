@@ -24,7 +24,6 @@ module.exports = {
   },
 
   handleListUpdate(list) {
-    console.log('handle update')
     clientManager.broadcastList(list)
   },
 
@@ -32,11 +31,11 @@ module.exports = {
     clientManager.broadcastItem(item)
   },
 
-  handleListUpdate(clients, list) {
-    client.emit('list', list)
+  handleListDelete(listId) {
+    clientManager.broadcastDeleteList(listId)
   },
 
-  handleItemUpdate(client, item) {
-    client.emit('item', item)
+  handleItemDelete(itemId) {
+    clientManager.broadcastDeleteItem(itemId)
   }
 }

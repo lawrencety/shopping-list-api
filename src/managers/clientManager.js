@@ -28,9 +28,7 @@ module.exports = () => {
   };
 
   function broadcastList(list) {
-    console.log('Client length: ', clients.length)
     clients.forEach((client) => {
-      console.log(client)
       client.emit('list', list)
     })
   };
@@ -41,12 +39,26 @@ module.exports = () => {
     })
   };
 
+  function broadcastDeleteList(listId) {
+    clients.forEach((client) => {
+      client.emit('deleteList', listId)
+    })
+  };
+
+  function broadcastDeleteItem(itemId) {
+    clients.forEach((client) => {
+      client.emit('deleteItem', itemId)
+    })
+  };
+
   return {
     addClient,
     removeClient,
     broadcastNewList,
     broadcastNewItem,
     broadcastList,
-    broadcastItem
+    broadcastItem,
+    broadcastDeleteList,
+    broadcastDeleteItem    
   }
 }

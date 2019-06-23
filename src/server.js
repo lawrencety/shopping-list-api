@@ -59,8 +59,19 @@ io.on('connection', (client) => {
   })
 
   client.on('updatedList', (list) => {
-    console.log('Please handle')
     handlers.handleListUpdate(list)
+  })
+
+  client.on('updatedItem', (item) => {
+    handlers.handleItemUpdate(item)
+  })
+
+  client.on('deletedList', (listId) => {
+    handlers.handleListDelete(listId)
+  })
+
+  client.on('deletedItem', (itemId) => {
+    handlers.handleItemDelete(itemId)
   })
 
   client.emit('message', 'Hello World');
