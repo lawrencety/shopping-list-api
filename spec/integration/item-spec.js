@@ -31,7 +31,7 @@ describe('routes', () => {
   describe('create', () => {
     it('should create an item in the list', (done) => {
       const options = {
-        url: `${base}lists/${this.list._id}/create`,
+        url: `${base}lists/${this.list._id}/items/create`,
         form: {
           name: 'Sugar cookies',
           quantity: 20
@@ -40,7 +40,7 @@ describe('routes', () => {
       request.post(options, (err, res, body) => {
         let result = JSON.parse(body);
         expect(result.statusCode).toBe(200);
-        expect(result.data[0].name).toBe('Sugar cookies');
+        expect(result.data.name).toBe('Sugar cookies');
         done();
       })
     })

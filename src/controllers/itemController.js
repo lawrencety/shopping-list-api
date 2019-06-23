@@ -10,11 +10,11 @@ module.exports = {
     }
     listQueries.getList(req.params.listId)
     .then((list) => {
-      let newList = itemQueries.createItem(list, newItem)
+      let item = itemQueries.createItem(list, newItem)
       let returnData = {
         statusCode: 200,
         message: 'Success',
-        data: newList.items
+        data: item
       };
       res.json(returnData)
     })
@@ -105,7 +105,7 @@ module.exports = {
       let returnData = {
         statusCode: 200,
         message: 'Success',
-        data: newList.items
+        data: req.params.id
       };
       res.json(returnData)
     })
