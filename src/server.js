@@ -5,23 +5,15 @@ const WebSocket = require('socket.io');
 const handlers = require('./handlers');
 const clientManager = require('./managers/clientManager');
 
-mongoose.connect('mongodb://localhost/bloc-shopping-list', {useNewUrlParser: true, useFindAndModify: false})
-.then(() => {
-})
-.catch((err) => {
-  console.log(err);
-})
 
-/*
 const uri = process.env.mongoSecret;
-mongoose.connect(uri, {useNewUrlParser: true})
+mongoose.connect(uri, {useNewUrlParser: true, useFindAndModify: false})
 .then(() => {
-  const collection = mongoose.db("test").collection("devices");
 })
 .catch((err) => {
   console.log(err);
 });
-*/
+
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
